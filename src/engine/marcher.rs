@@ -58,7 +58,7 @@ impl dyn Marchable {
 
                 // Reflections
                 if material.reflective > 0.0 {
-                    let reflection_direction = direction.reflected(normal);
+                    let reflection_direction = (-direction).reflected(normal);
                     let reflection = self.ray_march(position + reflection_direction * EPSILON * 2.0, reflection_direction, lights, depth + 1);
                     result = Mixable::mix(result, reflection, material.reflective);
                 }

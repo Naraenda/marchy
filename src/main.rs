@@ -41,11 +41,11 @@ fn main() -> Result<(), Box<dyn Error>> {
                         Rotor3::from_euler_angles(0.0, time, time*0.5), 
                         1.0),
                     object: Box::new(Torus {
-                        radius_1: 5.0,
-                        radius_2: 1.0,
+                        radius_1: 6.0,
+                        radius_2: 2.0,
                         material: Material {
-                            color: Vec3::new(1.0, 0.2, 0.2),
-                            reflective: 0.0,
+                            color: Vec3::new(0.4, 0.8, 1.0),
+                            reflective: 0.4,
                         },
                     })
                 }),
@@ -57,27 +57,27 @@ fn main() -> Result<(), Box<dyn Error>> {
                     object: Box::new(Cuboid {
                         size: Vec3::new(6.0, 3.0, 3.0),
                         material: Material {
-                            color: Vec3::new(0.2, 0.2, 1.0),
+                            color: Vec3::new(1.0, 0.8, 0.4),
                             reflective: 0.5,
                         },
                     })
                 }),
                 Box::new(Transform {
                     transform: Similarity3::new(
-                        Vec3::new(time.sin() * 12.0 + 5.0, time.cos() * 12.0, 20.0), 
+                        Vec3::new(time.sin() * 12.0 + 5.0, time.cos() * 12.0 + 4.0, 32.0), 
                         Rotor3::identity(), 
                         1.0),
                     object: Box::new(Sphere {
-                        radius: 8.0,
+                        radius: 9.0,
                         material: Material {
                             color: Vec3::broadcast(1.0),
-                            reflective: 0.7,
+                            reflective: 0.9,
                         },
                     })
                 }),
                 Box::new(Plane {
                     material: Material {
-                        color: Vec3::new(0.2, 1.0, 0.2),
+                        color: Vec3::new(1.0, 0.8, 0.9),
                         reflective: 0.5,
                     },
                     normal: Vec3::unit_y(),
@@ -89,20 +89,24 @@ fn main() -> Result<(), Box<dyn Error>> {
         // We need lights as well...
         let lights: Vec<Box<dyn Light>> = vec![
             // Global light makes it more visible, but also more ugly...
-            //Box::new(GlobalLight {
-            //    color: Vec3::one() * 0.0,
-            //}),
+            Box::new(GlobalLight {
+                color: Vec3::one() * 0.01,
+            }), 
             Box::new(PointLight {
-                color   : Vec3::one(),
-                position: Vec3::new(time.sin() * 5.0, 5.0, time.cos() * 5.0)
+                color   : Vec3::new(1.0, 1.0, 1.0) * 3.0,
+                position: Vec3::new(15.0, 8.0, 10.0)
             }),
             Box::new(PointLight {
-                color   : Vec3::new(1.0, 1.0, 1.0),
-                position: Vec3::new(time.sin() * 3.0 - 15.0, 0.0, 8.0)
+                color   : Vec3::new(1.0, 1.0, 1.0) * 3.0,
+                position: Vec3::new(-15.0, -2.5, 1.0)
+            }),
+            Box::new(PointLight {
+                color   : Vec3::new(1.0, 1.0, 1.0) * 4.0,
+                position: Vec3::new(0.0, 15.0, 3.0)
             }),
             Box::new(DirectionalLight {
                 color    : Vec3::new(0.5, 0.5, 0.5),
-                direction: Vec3::new(0.0, 0.0, -1.0),
+                direction: Vec3::new(0.0, 1.0, 0.0),
             })
         ];
 

@@ -57,7 +57,7 @@ pub fn color_to_styled(color: Vec3) -> StyledContent<String> {
     let c_rgb = LinSrgb::new(color.x, color.y, color.z);
     let mut c_hsl = Hsv::from(c_rgb);
     let value = c_hsl.value;
-    c_hsl.value = c_hsl.value * 0.25 + 0.75;
+    c_hsl.value = c_hsl.value.sqrt().sqrt();
     let c_rgb = LinSrgb::from(c_hsl);
     let (r, g, b): (u8, u8, u8) = c_rgb.into_format::<u8>().into_components();
 
